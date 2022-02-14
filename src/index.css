@@ -1,13 +1,213 @@
-body {
+* {
+  font-family: 'Nunito', sans-serif;
+  padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* header top */
+.header-top {
+  border-bottom: 1px solid #e5e5e5;
+  padding: 10px 0px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  background-color: #f1f1f1;
+}
+.top-right {
+  text-align: right;
+}
+/* logo */
+.logo {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+}
+.h-logo {
+  padding: 25px;
+}
+
+/* navbar */
+.f-size {
+  padding: 2px 0px;
+  font-size: 17px;
+  text-transform: uppercase;
+  color: #ffffff !important;
+}
+.h-logo .nav-link {
+  padding: 0;
+}
+#basic-nav-dropdown {
+  color: white;
+}
+.dropdown-menu {
+  background: #072948 !important;
+  border: none !important;
+  border-radius: none !important;
+}
+.box-shadow {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+/* main conatiner */
+.main-container {
+  min-height: 100vh;
+  overflow: hidden;
+  display: block;
+  position: relative;
+}
+
+/* slides carousel */
+.slider-item {
+  max-height: 400px;
+  object-fit: cover;
+}
+.carousel {
+  height: auto;
+  min-width: 100%;
+}
+
+/* footer */
+.main-footer {
+  padding-top: 75px;
+  padding-bottom: 60px;
+}
+.bottom-footer {
+  background-color: #e5e5e5;
+}
+.bottom-footer .container {
+  border-top: 1px solid #e1e1e1;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.main-footer .container .row p,
+.bottom-footer .container p {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+.bottom-footer .container {
+  text-align: center;
+}
+.title-footer {
+  margin-bottom: 25px;
+}
+.title-footer h3 {
+  font-weight: 600;
+}
+.background-footer {
+  background: #072948 none repeat scroll 0 0;
+}
+.horizontal-card {
+  position: relative;
+  display: flex;
+  border: 1px solid #ddd;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+.horizontal-card img {
+  width: 150px;
+  object-fit: cover;
+}
+.horizontal-card-body {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  padding: 5px 0px 0px 0px;
+}
+/* .block {
+  background-color: #cfc;
+  padding: 10px;
+  border: 1px solid green;
+} */
+
+/* react-slick */
+
+.img-react-slick {
+  height: 150px;
+  width: 200px;
+  display: block;
+  margin: auto;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+.slick-arrow {
+  color: black;
+}
+.slick-prev {
+  z-index: 100;
+  left: 20px !important;
+}
+.slick-next {
+  z-index: 100;
+  right: 20px !important;
+}
+
+/* card */
+.card {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  border-radius: 0 !important;
+}
+
+/* shadow pages */
+.shadow-pages {
+  /* box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px; */
+  box-shadow: 12px 0 15px -4px rgba(17, 17, 26, 0.1), -12px 0 8px -4px rgba(17, 17, 26, 0.1);
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.text-mail {
+  display: inline-grid;
+}
+.display-mail {
+  display: flex;
+}
+
+.mail-map {
+  align-items: center;
+}
+
+.bg-custom {
+  background: #072948;
+}
+
+/* Banner Header*/
+.header-info-wrapper {
+  width: calc(100% - 200px);
+  display: flex;
+  margin: 0 auto;
+}
+
+.header-info-item {
+  float: left;
+  width: 80%;
+  align-items: center;
+  line-height: 1;
+  display: flex;
+}
+.header-info-item span {
+  display: block;
+
+  font-weight: 600;
+  font-size: 16px;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+.icon-fa {
+  width: 48px;
+  height: 48px;
+  display: block;
+  background-color: #ed9532;
+  color: #fff;
+  border-radius: 40px;
+  line-height: 60px;
+  text-align: center;
+}
+.info-inner-wrap {
+  width: calc(100% - 30px);
+  padding-left: 10px;
+  text-align: left;
+}
+.info-inner-wrap span {
+  color: #1e88e5;
+}
+.info-inner-wrap a {
+  color: #0f233a;
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.01em;
 }
