@@ -1,30 +1,33 @@
 import Carousel from 'react-bootstrap/Carousel';
-// import dummySlide from '../image/dummySlide.png';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 function Slides() {
+  const [DataResponse, setDataResponses] = useState(null);
+
+  useEffect(() => {
+    axios
+      .get('http://adminmesuji.embuncode.com/api/image-gallery?instansi_id=2&per_page=1')
+      .then(function (response) {
+        setDataResponses(response.data.data.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
+
   return (
     <Carousel className="carousel slide carousel-fase" fade>
-      <Carousel.Item key="First slide">
-        <img className="d-block w-100 img-fluid slider-item" src="slider/slide1.jpg" alt="First slide" />
-        <Carousel.Caption>
-          <h5>First slide label</h5>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item key="First slide">
-        <img className="d-block w-100 img-fluid slider-item" src="slider/slide2.jpg" alt="First slide" />
-        <Carousel.Caption>
-          <h5>First slide label</h5>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item key="First slide">
-        <img className="d-block w-100 img-fluid slider-item" src="slider/slide3.jpg" alt="First slide" />
-        <Carousel.Caption>
-          <h5>First slide label</h5>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
+      {DataResponse &&
+        DataResponse.map((item, index) => {
+          return item.image_gallery_item.map((itm, idx) => {
+            return (
+              <Carousel.Item key={idx}>
+                <img className="d-block w-100 img-fluid slider-item" src={itm.image_file_data} alt="First slide" />
+              </Carousel.Item>
+            );
+          });
+        })}
     </Carousel>
   );
 }

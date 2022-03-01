@@ -1,141 +1,130 @@
 import Slides from '../layouts/Slides';
-import { Row, Col, Card, ListGroup } from 'react-bootstrap';
+import { Row, Col, Card, Container } from 'react-bootstrap';
 import dummySlide from '../image/dummySlide.png';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import Slider from 'react-slick';
-
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import moment from 'moment/min/moment-with-locales';
 function Home() {
-  const content =
-    'This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.';
-  const MAX_LENGTH = 150;
-  const settings = {
-    className: 'center',
-    centerMode: true,
-    infinite: true,
-    centerPadding: '60px',
-    slidesToShow: 5,
-    slidesToScroll: 1,
-    pauseOnHover: true,
-    autoplay: true,
-    autoplaySpeed: 2000,
-    speed: 500,
-  };
+  const [DataResponse, setDataResponses] = useState(null);
+
+  useEffect(() => {
+    axios
+      .get('http://adminmesuji.embuncode.com/api/news?instansi_id=2&sort_by=created_at&sort_type=desc&per_page=3')
+      .then(function (response) {
+        setDataResponses(response.data.data.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
+
+  function handleLength(value, lengths) {
+    if (value.length < lengths) {
+      return value;
+    } else {
+      return value.substring(0, lengths).substring(0, value.substring(0, lengths).lastIndexOf(' ')) + '...';
+    }
+  }
+
   return (
     <>
       <Slides />
 
       {/* Berita Terbaru */}
       <section className="section ">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-12">
+        <Container>
+          <Row>
+            <Col md={12}>
               <h3 className="main-heading">Berita Terbaru</h3>
               <Row xs={1} md={3} className="g-4">
-                {Array.from({ length: 3 }).map((_, idx) => (
-                  <Col>
-                    <Card className="shadow">
-                      <Card.Img variant="top" src={dummySlide} />
-                      <Card.Body>
-                        <Card.Title>Card title</Card.Title>
-                        <p class="card-text">
-                          <small class="text-muted">Diposting 19 menit lalu</small>
-                        </p>
-                        {content.length > MAX_LENGTH ? (
-                          <>
-                            <Card.Text>{`${content.substring(0, MAX_LENGTH)}...`}</Card.Text>
-                            <a href="#">Read more</a>
-                          </>
-                        ) : (
-                          <Card.Text>{content}</Card.Text>
-                        )}
-                      </Card.Body>
-                    </Card>
-                  </Col>
-                ))}
-                <Col>Apanih isinya ya apalagi kalau bukan list sidebar</Col>
+                {DataResponse &&
+                  DataResponse.map((item, index) => {
+                    return (
+                      <Col key={index}>
+                        <Card className="card-shadow card-size">
+                          <Card.Img className="card-img" variant="top" src={item.image_file_data} />
+                          <Card.Body>
+                            <Card.Title>{handleLength(item.title, 35)}</Card.Title>
+                            <p className="meta-info">
+                              <a href="#" className="text-muted">
+                                {moment(item.created_at).format('dddd, Do MMMM YYYY  ')}
+                              </a>
+                              <a href="#" className="text-muted" style={{ marginLeft: 10 }}>
+                                {item.total_hit}x dibaca
+                              </a>
+                              <a href="#" className="text-muted" style={{ marginLeft: 10 }}>
+                                {item.news_category_id}
+                              </a>
+                            </p>
+                            <p className="card-text">
+                              <small className="text-muted">Diposting {(moment.locale('id-ID'), moment(item.created_at).fromNow())}</small>
+                            </p>
+
+                            <Card.Text
+                              className="pt-1 pb-4 text-article"
+                              dangerouslySetInnerHTML={{
+                                __html: `${handleLength(item.intro, 120)}`,
+                              }}
+                            >
+                              {/* <div dangerouslySetInnerHTML={{ __html: handleLength(item.intro, 150) + '...' }} /> */}
+                            </Card.Text>
+                            <Link to={`/news/details/${item.id}`}>Baca Selengkapnya</Link>
+                          </Card.Body>
+                        </Card>
+                      </Col>
+                    );
+                  })}
               </Row>
-            </div>
-          </div>
-        </div>
+            </Col>
+          </Row>
+        </Container>
       </section>
 
       {/* Pemberitahuan */}
 
       <section className="section bg-light">
-        <div className="container">
+        <Container>
           <div className="md-12">
             <h3 className="main-heading">Berita Umum</h3>
-            <div className="row ">
-              <div className="col-md-7 "></div>
+            <Row>
+              <Col md={7}></Col>
 
-              <div className="col-md-5 ">
-                <div className="horizontal-card">
-                  <img src={dummySlide}></img>
-                  <div className="horizontal-card-body">
-                    <h4 class="card-title">Penggunaan Bukti Lulus Uji Berkala Kendaraan...</h4>
-                    <p>
-                      <span class="card-text">Subtitle This is a longer card with supporting text</span>
-                    </p>
-                    <small class="text-muted">Diposting 19 menit lalu</small>
+              <Col md={5}>
+                <div className="list-news-container">
+                  <div className="main-content">
+                    <ul className="list-news">
+                      <li className="list-news__item news">
+                        <h5 className="news__title">Turn the web into database: An alternative to webcrawling</h5>
+                        <p className="news__info">
+                          <span>2 hours ago</span>
+                          <span className="news__cmt">15 comments</span>
+                        </p>
+                      </li>
+                      <li className="list-news__item news">
+                        <h5 className="news__title">Turn the web into database: An alternative to webcrawling</h5>
+                        <p className="news__info">
+                          <span>2 hours ago</span>
+                          <span className="news__cmt">15 comments</span>
+                        </p>
+                      </li>
+                      <li className="list-news__item news">
+                        <h5 className="news__title">Turn the web into database: An alternative to webcrawling</h5>
+                        <p className="news__info">
+                          <span>2 hours ago</span>
+                          <span className="news__cmt">15 comments</span>
+                        </p>
+                      </li>
+                    </ul>
                   </div>
                 </div>
-                <div className="horizontal-card">
-                  <img src={dummySlide}></img>
-                  <div className="horizontal-card-body">
-                    <h4 class="card-title">Penggunaan Bukti Lulus Uji Berkala Kendaraan...</h4>
-                    <p>
-                      <span class="card-text">Subtitle This is a longer card with supporting text</span>
-                    </p>
-                    <small class="text-muted">Diposting 19 menit lalu</small>
-                  </div>
-                </div>
-                <div className="horizontal-card">
-                  <img src={dummySlide}></img>
-                  <div className="horizontal-card-body">
-                    <h4 class="card-title">Penggunaan Bukti Lulus Uji Berkala Kendaraan...</h4>
-                    <p>
-                      <span class="card-text">Subtitle This is a longer card with supporting text</span>
-                    </p>
-                    <small class="text-muted">Diposting 19 menit lalu</small>
-                  </div>
-                </div>
-              </div>
-            </div>
+              </Col>
+            </Row>
           </div>
-        </div>
+        </Container>
       </section>
 
-      {/* react-slick  */}
-      <section className="section">
-        <div className="container">
-          <Slider {...settings}>
-            <div>
-              <img className="img-react-slick" src="partners/adidas.png" alt="logo" />
-            </div>
-            <div>
-              <img className="img-react-slick" src="partners/facebook.png" alt="logo" />
-            </div>
-            <div>
-              <img className="img-react-slick" src="partners/google.png" alt="logo" />
-            </div>
-            <div>
-              <img className="img-react-slick" src="partners/instagram.png" alt="logo" />
-            </div>
-            <div>
-              <img className="img-react-slick" className="img-react-slick" src="partners/nike.png" alt="logo" />
-            </div>
-            <div>
-              <img className="img-react-slick" src="partners/twitter.png" alt="logo" />
-            </div>
-          </Slider>
-        </div>
-      </section>
-
-      {/* Galeri */}
-      <section>
-        <div className="container"></div>
-      </section>
+      {/* react-owl-carousel */}
     </>
   );
 }

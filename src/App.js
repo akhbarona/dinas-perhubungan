@@ -10,7 +10,12 @@ import './App.css';
 import Footer from './components/layouts/Footer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
-
+import Articles from './components/pages/Articles';
+import DetailsArticles from './components/pages/DetailsArticles';
+import Gallery from './components/pages/Gallerys';
+import Documents from './components/pages/Documents';
+import News from './components/pages/News';
+import DetailsNews from './components/pages/DetailsNews';
 function App() {
   return (
     <Router>
@@ -21,10 +26,10 @@ function App() {
           <Row className="mail-map">
             <Col className="h-logo" md={4}>
               <Nav.Link className="f-size" as={Link} to="/">
-                <img className="logo" src="logo/Logo-Dishub-Lamtim.svg"></img>
+                <img className="logo" src={'/logo/Logo-Dishub-Lamtim.svg'} alt="logo" key="1" />
               </Nav.Link>
             </Col>
-            <Col md={8}>
+            <Col md={8} className="header-icon">
               <div className="header-info-wrapper">
                 <div className="header-info-item">
                   <span className="icon-fa">
@@ -32,7 +37,7 @@ function App() {
                   </span>
                   <div className="info-inner-wrap">
                     <span>E-mail us ?</span>
-                    <a href="#">akhbarobna@yahoo.com</a>
+                    <a href="#">akhbarona@yahoo.com</a>
                   </div>
                 </div>
                 <div className="header-info-item">
@@ -53,7 +58,13 @@ function App() {
         <Navbars />
         <Routes>
           <Route exact path="/" element={<Home />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/informasi/visi-dan-misi" element={<Profile />} />
+          <Route exact path="/article" element={<Articles />} />
+          <Route path="/article/details/:id" element={<DetailsArticles />} />
+          <Route path="/news" element={<News />} />
+          <Route path="/news/details/:id" element={<DetailsNews />} />
+          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/document" element={<Documents />} />
         </Routes>
       </div>
 

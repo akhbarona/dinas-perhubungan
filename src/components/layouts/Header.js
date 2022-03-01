@@ -1,13 +1,14 @@
+import { Row, Col, Container } from 'react-bootstrap';
 function Header() {
   return (
     <header>
       <div className="header-top">
-        <div className="container">
-          <div className="row">
-            <div className="col top-left">Column</div>
-            <div className="col top-right">Column</div>
-          </div>
-        </div>
+        <Container>
+          <Row>
+            <Col className="col top-left">Column</Col>
+            <Col className="col top-right">Column</Col>
+          </Row>
+        </Container>
       </div>
     </header>
   );

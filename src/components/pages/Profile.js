@@ -1,12 +1,14 @@
+import { Container } from 'react-bootstrap';
+
 function Profile() {
   return (
-    <div className="container">
+    <Container>
       <div className="card mt-4">
         <div className="card-body mt-4">
           <h2>Profile Page</h2>
         </div>
       </div>
-    </div>
+    </Container>
   );
 }
 

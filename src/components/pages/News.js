@@ -1,5 +1,5 @@
 function News() {
-  return <></>;
+  return <section>Ini berita</section>;
 }
 
 export default News;
