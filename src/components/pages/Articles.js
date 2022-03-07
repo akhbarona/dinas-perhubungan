@@ -1,8 +1,12 @@
-import { Row, Col, Container, ListGroup, Badge, Pagination, Spinner } from 'react-bootstrap';
+import { Row, Col, Container, ListGroup, Badge, Pagination, Spinner, Form, Button } from 'react-bootstrap';
 import axios from 'axios';
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, Fragment, useLayoutEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+// import { useParams } from 'react-router-dom';
 function Articles() {
+  // const { slug } = useParams();
   const [DataResponse, setDataResponses] = useState(0);
 
   const [IPages, setIPages] = useState([]);
@@ -11,10 +15,10 @@ function Articles() {
   const forceUpdate = useCallback(() => updateState({}), []);
   const [Categories, setDataCategories] = useState([]);
   const [PostPopular, setPostPopular] = useState([]);
-
-  useEffect(() => {
-    gettingData(1);
-  }, []);
+  const [ArticleCategories, setArticleCategories] = useState();
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  });
   useEffect(() => {
     axios
       .get('http://adminmesuji.embuncode.com/api/article/categories/2')
@@ -25,6 +29,7 @@ function Articles() {
         console.log(error);
       });
   }, []);
+
   useEffect(() => {
     axios
       .get('http://adminmesuji.embuncode.com/api/article?instansi_id=2&per_page=5&sort_type=desc&sort_by=total_hit')
@@ -35,6 +40,7 @@ function Articles() {
         console.log(error);
       });
   }, []);
+
   function handleLength(value, lengths) {
     if (value.length < lengths) {
       return value;
@@ -42,18 +48,34 @@ function Articles() {
       return value.substring(0, lengths).substring(0, value.substring(0, lengths).lastIndexOf(' ')) + '...';
     }
   }
+
+  useEffect(() => {
+    gettingData(1);
+  }, []);
   // let tooglePaginate = true;
-  function gettingData(page) {
+  function gettingData(page, slug) {
     setDataResponses(null);
+    let url = '';
+    if (slug == null) {
+      url = 'http://adminmesuji.embuncode.com/api/article?instansi_id=2&per_page=4&page=' + page;
+    } else {
+      url = 'http://adminmesuji.embuncode.com/api/article?instansi_id=2&per_page=4&slug=' + slug + '&page=' + page;
+    }
     axios
-      .get('http://adminmesuji.embuncode.com/api/article?instansi_id=2&per_page=4&page=' + page)
+      .get(url)
       .then(function (response) {
         setDataResponses(response.data.data.data);
         iPages = [];
         // if (tooglePaginate) {
         for (let number = 1; number <= response.data.data.last_page; number++) {
           iPages.push(
-            <Pagination.Item onClick={() => gettingData(number)} key={number} active={number === response.data.data.current_page}>
+            <Pagination.Item
+              onClick={() => {
+                slug == null ? gettingData(number) : gettingData(number, slug);
+              }}
+              key={number}
+              active={number === response.data.data.current_page}
+            >
               {number}
             </Pagination.Item>
           );
@@ -66,6 +88,13 @@ function Articles() {
       .catch(function (error) {
         console.log(error);
       });
+  }
+  function handleArticleChange(artikelSlug) {
+    console.log('artikelSlug', artikelSlug);
+
+    gettingData(1, artikelSlug);
+
+    setArticleCategories(artikelSlug);
   }
   return (
     <section className="section bg-light">
@@ -117,14 +146,50 @@ function Articles() {
           <Col md={4} sm={12} xs={12}>
             <div className="sidebar sidebar-right">
               <div className="seacrh-widget">
-                <form method="get" action="">
-                  <input name="keyword" type="text" placeholder="Search..." />
-                  <button type="submit"></button>
-                </form>
+                <Form className="has-search">
+                  <span className="form-control-feedback">
+                    <FontAwesomeIcon icon={faSearch} size="1x" />
+                  </span>
+                  <Form.Control type="text" placeholder="Search Articles" />
+                </Form>
+              </div>
+              <div className="single-sidebar category-widget">
+                <div className="title">
+                  <h3>Kategori Artikel</h3>
+                </div>
+
+                <div id="category" className="category-list">
+                  <ListGroup as="ol">
+                    {Categories &&
+                      Categories.map((value, idx) => {
+                        return (
+                          <Fragment key={idx}>
+                            {/* <ListGroup.Item as="li" className="d-flex justify-content-between align-items-start" key={idx}> */}
+                            {ArticleCategories === value.slug ? (
+                              <ListGroup.Item as="li" onClick={() => handleArticleChange(value.slug)} className=" d-flex justify-content-between align-items-start kategori-list-article kategori-list-article-active" key={idx}>
+                                <div className="me-auto">{value.nama_kategori}</div>
+                                <Badge variant="primary" pill>
+                                  {value.artikel_count}
+                                </Badge>
+                              </ListGroup.Item>
+                            ) : (
+                              <ListGroup.Item as="li" onClick={() => handleArticleChange(value.slug)} className=" d-flex justify-content-between align-items-start kategori-list-article" key={idx}>
+                                <div className="me-auto">{value.nama_kategori}</div>
+                                <Badge variant="primary" pill>
+                                  {value.artikel_count}
+                                </Badge>
+                              </ListGroup.Item>
+                            )}
+                            {/* </ListGroup.Item> */}
+                          </Fragment>
+                        );
+                      })}
+                  </ListGroup>
+                </div>
               </div>
               <div className="recent-post-widget">
                 <div className="title-widget">
-                  <h3>Popular Posts</h3>
+                  <h3>Populer Artikel</h3>
                 </div>
                 <div id="popular" className="recent-post-list">
                   <div className="single-recent-post">
@@ -148,29 +213,6 @@ function Articles() {
                         })}
                     </ul>
                   </div>
-                </div>
-              </div>
-              <div className="single-sidebar category-widget">
-                <div className="title">
-                  <h3>Kategori</h3>
-                </div>
-
-                <div id="category" className="category-list">
-                  <ListGroup as="ol">
-                    {Categories &&
-                      Categories.map((value, idx) => {
-                        return (
-                          // <ListGroup.Item as="li" className="d-flex justify-content-between align-items-start" key={idx}>
-                          <a as="li" className="list-group-item  d-flex justify-content-between align-items-start " href="#" key={idx}>
-                            <div className="me-auto">{value.nama_kategori}</div>
-                            <Badge variant="primary" pill>
-                              {value.artikel_count}
-                            </Badge>
-                            {/* </ListGroup.Item> */}
-                          </a>
-                        );
-                      })}
-                  </ListGroup>
                 </div>
               </div>
             </div>

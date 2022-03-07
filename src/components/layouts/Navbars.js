@@ -16,7 +16,7 @@ function Navbars() {
       });
   }, []);
   return (
-    <Navbar className="navbar-dark bg-custom box-shadow" expand="lg" sticky="top" collapseOnSelect>
+    <Navbar className="navbar-dark bg-custom box-shadow" expand="lg" collapseOnSelect>
       <Container>
         <Navbar.Brand as={Link} to="/"></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
