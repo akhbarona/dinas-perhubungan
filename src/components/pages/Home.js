@@ -8,6 +8,7 @@ import moment from 'moment/min/moment-with-locales';
 function Home() {
   const [DataResponse, setDataResponses] = useState(null);
   const [BeritaUmum, setBeritaUmum] = useState(null);
+
   useEffect(() => {
     axios
       .get('http://adminmesuji.embuncode.com/api/news?instansi_id=2&sort_by=created_at&sort_type=desc&per_page=3')
@@ -29,6 +30,7 @@ function Home() {
         console.log(error);
       });
   }, []);
+
   function handleLength(value, lengths) {
     if (value.length < lengths) {
       return value;
@@ -105,6 +107,82 @@ function Home() {
                   <div className="daily-content">
                     <ul className="daily-news">
                       <li className="daily-news__item">
+                        <div class="cards-daily">
+                          <div class="card-daily content">
+                            <div class="card-daily-content">
+                              <div class="card-daily-img">
+                                <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80" alt="Gamer" />
+                              </div>
+                              <div class="card-daily-label">E-Sports</div>
+                              <div class="card-daily-title">Fnatic raises $19 million, shakes up leadership team</div>
+                            </div>
+                          </div>
+                          <div class="card-daily content">
+                            <div class="card-daily-content">
+                              <div class="card-daily-img">
+                                <img src="https://images.unsplash.com/photo-1547394765-185e1e68f34e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80" alt="keyboard" />
+                              </div>
+                              <div class="card-daily-label">Technology</div>
+                              <div class="card-daily-title">Google Stadia: The Future of Gaming</div>
+                            </div>
+                          </div>
+                          <div class="card-daily content">
+                            <div class="card-daily-content">
+                              <div class="card-daily-img">
+                                <img src="https://images.unsplash.com/photo-1519326844852-704caea5679e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2034&q=80" alt="Controller" />
+                              </div>
+                              <div class="card-daily-label">Consoles</div>
+                              <div class="card-daily-title">PS5 won't launch before mid-2020</div>
+                            </div>
+                          </div>
+                          <div class="card-daily content">
+                            <div class="card-daily-content">
+                              <div class="card-daily-img">
+                                <img src="https://images.unsplash.com/photo-1519326844852-704caea5679e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2034&q=80" alt="Controller" />
+                              </div>
+                              <div class="card-daily-label">Consoles</div>
+                              <div class="card-daily-title">PS5 won't launch before mid-2020</div>
+                            </div>
+                          </div>
+                          <div class="card-daily content">
+                            <div class="card-daily-content">
+                              <div class="card-daily-img">
+                                <img src="https://images.unsplash.com/photo-1519326844852-704caea5679e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2034&q=80" alt="Controller" />
+                              </div>
+                              <div class="card-daily-label">Consoles</div>
+                              <div class="card-daily-title">PS5 won't launch before mid-2020</div>
+                            </div>
+                          </div>
+                          <div class="card-daily content">
+                            <div class="card-daily-content">
+                              <div class="card-daily-img">
+                                <img src="https://images.unsplash.com/photo-1519326844852-704caea5679e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2034&q=80" alt="Controller" />
+                              </div>
+                              <div class="card-daily-label">Consoles</div>
+                              <div class="card-daily-title">PS5 won't launch before mid-2020</div>
+                            </div>
+                          </div>
+                          <div class="card-daily content">
+                            <div class="card-daily-content">
+                              <div class="card-daily-img">
+                                <img src="https://images.unsplash.com/photo-1519326844852-704caea5679e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2034&q=80" alt="Controller" />
+                              </div>
+                              <div class="card-daily-label">Consoles</div>
+                              <div class="card-daily-title">PS5 won't launch before mid-2020</div>
+                            </div>
+                          </div>
+                          <div class="card-daily content">
+                            <div class="card-daily-content">
+                              <div class="card-daily-img">
+                                <img src="https://images.unsplash.com/photo-1519326844852-704caea5679e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2034&q=80" alt="Controller" />
+                              </div>
+                              <div class="card-daily-label">Consoles</div>
+                              <div class="card-daily-title">PS5 won't launch before mid-2020</div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li className="daily-news__item">
                         <h3 className="daily__title">Hello World</h3>
                         <p className="daily__info">
                           <span>2 hours ago, umum</span>
@@ -128,6 +206,7 @@ function Home() {
                               <p className="news__info">
                                 <span>{moment(item.created_at).startOf('hour').fromNow()}</span>
                                 <span className="news__cmt">{item.total_hit}x dibaca</span>
+                                <span className="news__cmt">{item.news_category_id}</span>
                               </p>
                             </li>
                           );

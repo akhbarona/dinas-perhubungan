@@ -1,16 +1,16 @@
 import { Row, Col, Container } from 'react-bootstrap';
 import moment from 'moment/min/moment-with-locales';
 
-function Header() {
+function Header(props) {
   return (
     <header>
       <div className="header-top">
         <Container>
           <Row>
             <Col className="col top-left ">
-              <div class="ticker-wrapper-v">
-                <div class="heading-c">Recent News</div>
-                <ul class="news-ticker-v">
+              <div className="ticker-wrapper-v">
+                <div className="heading-c">Recent News</div>
+                <ul className="news-ticker-v">
                   <li>
                     <a href="">1. What is Lorem Ipsum?</a>
                   </li>
@@ -31,13 +31,13 @@ function Header() {
             </Col>
             <Col className="col top-right">
               <div className="icon-header">
-                <a href="#">
+                <a href={props.data.facebook}>
                   <i className="fab fa-facebook-f facebook-bg" />
                 </a>
-                <a href="#">
+                <a href={props.data.youtube}>
                   <i className="fab fa-youtube youtube-bg" />
                 </a>
-                <a href="#">
+                <a href={props.data.instagram}>
                   <i className="fab fa-instagram instagram-bg" />
                 </a>
               </div>
@@ -46,7 +46,7 @@ function Header() {
         </Container>
       </div>
       <div className="header-time">
-        <Container>{moment().format('MMMM Do YYYY, h:mm:ss a')}</Container>
+        <Container>{moment().format('dddd, Do MMMM YYYY  ')}</Container>
       </div>
     </header>
   );

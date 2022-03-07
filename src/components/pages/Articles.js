@@ -166,14 +166,14 @@ function Articles() {
                           <Fragment key={idx}>
                             {/* <ListGroup.Item as="li" className="d-flex justify-content-between align-items-start" key={idx}> */}
                             {ArticleCategories === value.slug ? (
-                              <ListGroup.Item as="li" onClick={() => handleArticleChange(value.slug)} className=" d-flex justify-content-between align-items-start kategori-list-article kategori-list-article-active" key={idx}>
+                              <ListGroup.Item as="li" onClick={() => handleArticleChange(value.slug)} className="d-flex justify-content-between align-items-start kategori-list-article kategori-list-article-active" key={idx}>
                                 <div className="me-auto">{value.nama_kategori}</div>
                                 <Badge variant="primary" pill>
                                   {value.artikel_count}
                                 </Badge>
                               </ListGroup.Item>
                             ) : (
-                              <ListGroup.Item as="li" onClick={() => handleArticleChange(value.slug)} className=" d-flex justify-content-between align-items-start kategori-list-article" key={idx}>
+                              <ListGroup.Item as="li" onClick={() => handleArticleChange(value.slug)} className="d-flex justify-content-between align-items-start kategori-list-article " key={idx}>
                                 <div className="me-auto">{value.nama_kategori}</div>
                                 <Badge variant="primary" pill>
                                   {value.artikel_count}
