@@ -1,10 +1,12 @@
 import { Container, Row, Col, Spinner } from 'react-bootstrap';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useLayoutEffect } from 'react';
 import axios from 'axios';
 
 function PhotoGalleries() {
   const [images, setImages] = useState(null);
-
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  });
   useEffect(() => {
     axios
       .get('http://adminmesuji.embuncode.com/api/image-gallery?instansi_id=2')
@@ -56,7 +58,7 @@ function PhotoGalleries() {
                             </div>
                           </div>
                         </a>
-                        <div className="lightbox" id={`lightbox-` + i} key={i++}>
+                        <div className="lightbox" id={`lightbox-` + i} key={++i}>
                           <div className="content">
                             <img src={itm.image_file_data} />
                             <div className="title">{itm.image_file_name}</div>

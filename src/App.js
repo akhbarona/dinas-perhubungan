@@ -18,7 +18,7 @@ import Documents from './components/pages/Documents';
 import News from './components/pages/News';
 import DetailsNews from './components/pages/DetailsNews';
 import PagesNotFound from './components/pages/PagesNotFound';
-import Slide from './components/pages/Slide';
+
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 function App() {
@@ -73,7 +73,7 @@ function App() {
       <Navbars />
       <div className="main-container">
         <Routes>
-          <Route exact path="/" element={<Home />} />
+          <Route exact path="/" element={<Home data={Instansi} />} />
           <Route path="/informasi/visi-dan-misi" element={<VisiMisi />} />
           <Route exact path="/article" element={<Articles />} />
           {/* <Route path="/article:slug" element={<Articles />} /> */}
@@ -84,7 +84,6 @@ function App() {
           <Route path="/foto" element={<PhotoGalleries />} />
           <Route path="/video" element={<VideoGalleries />} />
           <Route path="/document" element={<Documents />} />
-          <Route path="/slide" element={<Slide />} />
 
           <Route path="*" element={<PagesNotFound />} />
         </Routes>

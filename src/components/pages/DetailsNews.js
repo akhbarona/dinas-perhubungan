@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useLayoutEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Container, Row, Col, ListGroup, Badge } from 'react-bootstrap';
 import axios from 'axios';
@@ -8,7 +8,9 @@ function DetailsNews() {
   // const fixId = id.split('/').pop();
   console.log(id);
   const [DataResponse, setDataResponses] = useState([]);
-
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  });
   useEffect(() => {
     axios
       .get('http://adminmesuji.embuncode.com/api/news/' + id)

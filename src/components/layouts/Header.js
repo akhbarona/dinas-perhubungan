@@ -29,6 +29,13 @@ function Header(props) {
                 </ul>
               </div>
             </Col>
+          </Row>
+        </Container>
+      </div>
+      <div className="header-time">
+        <Container>
+          <Row>
+            <Col className="col-md-6 font-type">{moment().format('dddd, Do MMMM YYYY  ')}</Col>
             <Col className="col top-right">
               <div className="icon-header">
                 <a href={props.data.facebook}>
@@ -44,9 +51,6 @@ function Header(props) {
             </Col>
           </Row>
         </Container>
-      </div>
-      <div className="header-time">
-        <Container>{moment().format('dddd, Do MMMM YYYY  ')}</Container>
       </div>
     </header>
   );

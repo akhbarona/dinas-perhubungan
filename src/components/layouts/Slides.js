@@ -17,13 +17,13 @@ function Slides() {
   }, []);
 
   return (
-    <Carousel className="carousel slide carousel-fase" fade>
+    <Carousel className="carousel slide carousel-fase">
       {DataResponse &&
         DataResponse.map((item, index) => {
           return item.image_gallery_item.map((itm, idx) => {
             return (
-              <Carousel.Item key={idx}>
-                <img className="d-block w-100 img-fluid slider-item" src={itm.image_file_data} alt="First slide" />
+              <Carousel.Item key={idx} interval={3000}>
+                <img className="d-block w-100  slider-item" src={itm.image_file_data} alt="First slide" />
               </Carousel.Item>
             );
           });

@@ -5,9 +5,12 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment/min/moment-with-locales';
-function Home() {
+function Home(props) {
   const [DataResponse, setDataResponses] = useState(null);
   const [BeritaUmum, setBeritaUmum] = useState(null);
+  // const [BeritaPopuler, setBeritaPopuler] = useState(null);
+  const [BoxBerita, setBoxBerita] = useState(null);
+  const [TextBerita, setTextBerita] = useState(null);
 
   useEffect(() => {
     axios
@@ -31,6 +34,36 @@ function Home() {
       });
   }, []);
 
+  useEffect(() => {
+    axios
+      .get('http://adminmesuji.embuncode.com/api/news?instansi_id=2&sort_by=total_hit&sort_type=desc&per_page=7')
+      .then(function (response) {
+        // setBeritaPopuler(response.data.data.data);
+        // console.log('Berita Umum :  ', response.data.data.data);
+        rebuildBerita(response.data.data.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
+
+  function rebuildBerita(response) {
+    let beritaImage = [];
+    let beritaText = [];
+    let counterBerita = 0;
+    for (let i = 0; i < response.length; i++) {
+      if (counterBerita <= 3) {
+        counterBerita++;
+        beritaImage.push(response[i]);
+      } else {
+        counterBerita++;
+        beritaText.push(response[i]);
+      }
+    }
+    setBoxBerita(beritaImage);
+    setTextBerita(beritaText);
+  }
+
   function handleLength(value, lengths) {
     if (value.length < lengths) {
       return value;
@@ -41,16 +74,15 @@ function Home() {
 
   return (
     <>
-      <Container>
-        <Slides />
-      </Container>
+      <Slides />
+
       {/* Berita Terbaru */}
       <section className="section ">
         <Container>
           <Row>
             <Col md={12}>
               <h3 className="main-heading">Berita Terbaru</h3>
-              <Row xs={1} md={3} className="g-4">
+              <Row xs={1} lg={3} xl={3} className="g-4">
                 {DataResponse &&
                   DataResponse.map((item, index) => {
                     return (
@@ -101,100 +133,58 @@ function Home() {
         <Container>
           <div className="md-12">
             <Row>
-              <Col md={7}>
+              <Col md={7} className="mb-5">
                 <h3 className="main-heading">Berita Terpopuler</h3>
                 <div className="daily-news-container">
                   <div className="daily-content">
                     <ul className="daily-news">
                       <li className="daily-news__item">
-                        <div class="cards-daily">
-                          <div class="card-daily content">
-                            <div class="card-daily-content">
-                              <div class="card-daily-img">
-                                <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80" alt="Gamer" />
-                              </div>
-                              <div class="card-daily-label">E-Sports</div>
-                              <div class="card-daily-title">Fnatic raises $19 million, shakes up leadership team</div>
-                            </div>
-                          </div>
-                          <div class="card-daily content">
-                            <div class="card-daily-content">
-                              <div class="card-daily-img">
-                                <img src="https://images.unsplash.com/photo-1547394765-185e1e68f34e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80" alt="keyboard" />
-                              </div>
-                              <div class="card-daily-label">Technology</div>
-                              <div class="card-daily-title">Google Stadia: The Future of Gaming</div>
-                            </div>
-                          </div>
-                          <div class="card-daily content">
-                            <div class="card-daily-content">
-                              <div class="card-daily-img">
-                                <img src="https://images.unsplash.com/photo-1519326844852-704caea5679e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2034&q=80" alt="Controller" />
-                              </div>
-                              <div class="card-daily-label">Consoles</div>
-                              <div class="card-daily-title">PS5 won't launch before mid-2020</div>
-                            </div>
-                          </div>
-                          <div class="card-daily content">
-                            <div class="card-daily-content">
-                              <div class="card-daily-img">
-                                <img src="https://images.unsplash.com/photo-1519326844852-704caea5679e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2034&q=80" alt="Controller" />
-                              </div>
-                              <div class="card-daily-label">Consoles</div>
-                              <div class="card-daily-title">PS5 won't launch before mid-2020</div>
-                            </div>
-                          </div>
-                          <div class="card-daily content">
-                            <div class="card-daily-content">
-                              <div class="card-daily-img">
-                                <img src="https://images.unsplash.com/photo-1519326844852-704caea5679e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2034&q=80" alt="Controller" />
-                              </div>
-                              <div class="card-daily-label">Consoles</div>
-                              <div class="card-daily-title">PS5 won't launch before mid-2020</div>
-                            </div>
-                          </div>
-                          <div class="card-daily content">
-                            <div class="card-daily-content">
-                              <div class="card-daily-img">
-                                <img src="https://images.unsplash.com/photo-1519326844852-704caea5679e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2034&q=80" alt="Controller" />
-                              </div>
-                              <div class="card-daily-label">Consoles</div>
-                              <div class="card-daily-title">PS5 won't launch before mid-2020</div>
-                            </div>
-                          </div>
-                          <div class="card-daily content">
-                            <div class="card-daily-content">
-                              <div class="card-daily-img">
-                                <img src="https://images.unsplash.com/photo-1519326844852-704caea5679e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2034&q=80" alt="Controller" />
-                              </div>
-                              <div class="card-daily-label">Consoles</div>
-                              <div class="card-daily-title">PS5 won't launch before mid-2020</div>
-                            </div>
-                          </div>
-                          <div class="card-daily content">
-                            <div class="card-daily-content">
-                              <div class="card-daily-img">
-                                <img src="https://images.unsplash.com/photo-1519326844852-704caea5679e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2034&q=80" alt="Controller" />
-                              </div>
-                              <div class="card-daily-label">Consoles</div>
-                              <div class="card-daily-title">PS5 won't launch before mid-2020</div>
-                            </div>
-                          </div>
+                        <div className="cards-daily">
+                          {BoxBerita &&
+                            BoxBerita.map((item, index) => {
+                              return (
+                                <Link to={`/news/details/${item.id}`} className="card-daily content" key={index}>
+                                  <div className="card-daily-content">
+                                    <div className="card-daily-img">
+                                      <img src={item.image_file_data} alt="Gamer" />
+                                    </div>
+                                    <div className="card-daily-label">{item.news_category_id}</div>
+                                    <div className="card-daily-title">{handleLength(item.title, 60)}</div>
+                                  </div>
+                                </Link>
+                              );
+                            })}
                         </div>
                       </li>
-                      <li className="daily-news__item">
-                        <h3 className="daily__title">Hello World</h3>
-                        <p className="daily__info">
-                          <span>2 hours ago, umum</span>
-                        </p>
-                      </li>
+                      {TextBerita &&
+                        TextBerita.map((item, index) => {
+                          return (
+                            <li className="daily-news__item" key={index}>
+                              <Link to={`/news/details/${item.id}`}>
+                                <h3 className="daily__title">{item.title}</h3>
+                                <p className="daily__info">
+                                  <span>
+                                    {moment(item.created_at).format('Do MMMM YYYY ')}, {item.news_category_id}
+                                  </span>
+                                </p>
+                              </Link>
+                            </li>
+                          );
+                        })}
                     </ul>
                   </div>
                 </div>
               </Col>
 
               <Col md={5}>
-                <h3 className="main-heading">Berita Umum</h3>
+                <h3 className="main-heading">
+                  Berita Umum
+                  <span className="right">
+                    <a className="btn-more" href="#">
+                      See More
+                    </a>
+                  </span>
+                </h3>
                 <div className="list-news-container">
                   <div className="main-content">
                     <ul className="list-news">
@@ -214,6 +204,16 @@ function Home() {
                     </ul>
                   </div>
                 </div>
+
+                <h3 className="main-heading document-label cf">
+                  Dokumen
+                  <span className="right">
+                    <a className="btn-more" href="#">
+                      See More
+                    </a>
+                  </span>
+                </h3>
+                <div className="">Hello World</div>
               </Col>
             </Row>
           </div>
@@ -225,21 +225,15 @@ function Home() {
         <Container>
           <Row mb={5}>
             <Col md={4} className="u-valign-middle">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Eva_dwiyana_mayor.png" />
+              <img src={props.data.foto_kepala} />
             </Col>
             <Col md={8} className="rest">
-              {/* <h2 className="kata-pembuka-news">Assalamu'alaikum Warahmatullahi Wabarakatuh</h2>
-              <p>Salam Sejahtera untuk Kita Semua</p>
-              <p>
-                Puji syukur ke hadirat Allah Subhanallahu Wa Taala, karena atas ridho-Nya Dinas Pertanian dan Ketahanan Pangan Provinsi Jawa Timur berupaya memberikan informasi-informasi terkait dunia pertanian dan pangan melalui media
-                website. Hal ini selaras dengan Visi Misi Ibu Gubernur dan Bapak Wakil Gubernur Jawa Timur yang tertuang dalam Nawa Bhakti Satya di Bidang Pertanian dan Ketahanan Pangan yaitu Jatim Agro, maka pelayanan publik baik berupa
-                informasi, program, maupun layanan diharapkan dapat disajikan ke publik secara Cepat, Efektif, Tanggap, Transparan, dan Responsif..
-              </p>
-              <h2 className="kata-penutup-news">Wassalamu 'Alaikum Warahmatullahi Wabarakatuh</h2>
+              <h2 className="kata-pembuka-news"> Selamat Datang di {props.data.nama_instansi}</h2>
+
+              <p>{props.data.tentang}</p>
               <div className="nama-kpla">
-                <h2 className="kata-penutup-news">Kepala Dinas Pertanian dan Ketahanan Pangan Provinsi Jawa Timur</h2>
-                <h2 className="kepala-dinas">Dr. Ir. Hadi Sulistyo, M.Si</h2>
-              </div> */}
+                <h3 className="kepala-dinas">{props.data.nama_kepala}</h3>
+              </div>
             </Col>
           </Row>
         </Container>
@@ -253,9 +247,9 @@ function Home() {
               <h3 className="text-center fw-bold cf">
                 <span className="title-label-left">Galerry</span>
                 <span className="right">
-                  <a className="btn-more" href="#">
+                  <Link className="btn-more" to={`/foto`}>
                     See More
-                  </a>
+                  </Link>
                 </span>
               </h3>
 
