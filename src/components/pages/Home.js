@@ -1,17 +1,31 @@
 import Slides from '../layouts/Slides';
 import { Row, Col, Card, Container } from 'react-bootstrap';
-import dummySlide from '../image/dummySlide.png';
+// import dummySlide from '../image/dummySlide.png';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import moment from 'moment/min/moment-with-locales';
+// import moment from 'moment/min/moment-with-locales';
+import moment from 'moment';
+import 'moment/locale/id';
 function Home(props) {
   const [DataResponse, setDataResponses] = useState(null);
   const [BeritaUmum, setBeritaUmum] = useState(null);
   // const [BeritaPopuler, setBeritaPopuler] = useState(null);
   const [BoxBerita, setBoxBerita] = useState(null);
   const [TextBerita, setTextBerita] = useState(null);
-
+  const [BoxAlbum, setBoxAlbum] = useState();
+  const [DataDokumen, setDataDokumen] = useState([]);
+  useEffect(() => {
+    axios
+      .get('http://adminmesuji.embuncode.com/api/dokumen?instansi_id=7')
+      .then(function (dokumen) {
+        // console.log('dokumen: ' + dokumen.data.data.data);
+        setDataDokumen(dokumen.data.data.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
   useEffect(() => {
     axios
       .get('http://adminmesuji.embuncode.com/api/news?instansi_id=2&sort_by=created_at&sort_type=desc&per_page=3')
@@ -47,6 +61,17 @@ function Home(props) {
       });
   }, []);
 
+  useEffect(() => {
+    axios
+      .get('http://adminmesuji.embuncode.com/api/image-gallery?instansi_id=2')
+      .then(function (response) {
+        rebuildAlbum(response.data.data.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
+
   function rebuildBerita(response) {
     let beritaImage = [];
     let beritaText = [];
@@ -63,7 +88,19 @@ function Home(props) {
     setBoxBerita(beritaImage);
     setTextBerita(beritaText);
   }
-
+  function rebuildAlbum(response) {
+    let album = [];
+    let counterAlbum = 0;
+    for (let i = 0; i < response.length; i++) {
+      for (let k = 0; k < response[i].image_gallery_item.length; k++) {
+        if (counterAlbum < 5) {
+          counterAlbum++;
+          album.push(response[i].image_gallery_item[k]);
+        }
+      }
+    }
+    setBoxAlbum(album);
+  }
   function handleLength(value, lengths) {
     if (value.length < lengths) {
       return value;
@@ -164,7 +201,7 @@ function Home(props) {
                                 <h3 className="daily__title">{item.title}</h3>
                                 <p className="daily__info">
                                   <span>
-                                    {moment(item.created_at).format('Do MMMM YYYY ')}, {item.news_category_id}
+                                    {moment(item.created_at).format('Do MMMM YYYY ')}, {item.news_category_id}, {item.total_hit}x dibaca
                                   </span>
                                 </p>
                               </Link>
@@ -208,12 +245,36 @@ function Home(props) {
                 <h3 className="main-heading document-label cf">
                   Dokumen
                   <span className="right">
-                    <a className="btn-more" href="#">
+                    <Link className="btn-more" to={`/document`}>
                       See More
-                    </a>
+                    </Link>
                   </span>
                 </h3>
-                <div className="">Hello World</div>
+                <div className="dokumen-bg">
+                  {DataDokumen &&
+                    DataDokumen.map((item, index) => {
+                      return item.dokumen_item.map((itm, idx) => {
+                        return (
+                          <div className="offerList" key={idx}>
+                            <ul className="media">
+                              {/* <img className="d-flex " src="./dokumen.jpg" alt="Generic placeholder image" /> */}
+                              {/* <i className="d-flex fa-solid fa-book mr-3 image-dok"></i> */}
+                              <li className="media-body">
+                                <Link to={'/pdf/' + item.slug + '/' + itm.dokumen_file_name.replace(/\s/g, '')}>
+                                  <h5 className="mt-0">{itm.dokumen_file_name}</h5>
+
+                                  <p className="text_grey mb-0 ">
+                                    <span className="text_blue">Created on: </span>
+                                    {(moment.locale('id-ID'), moment(itm.created_at).format('LLL'))}
+                                  </p>
+                                </Link>
+                              </li>
+                            </ul>
+                          </div>
+                        );
+                      });
+                    })}
+                </div>
               </Col>
             </Row>
           </div>
@@ -228,7 +289,7 @@ function Home(props) {
               <img src={props.data.foto_kepala} />
             </Col>
             <Col md={8} className="rest">
-              <h2 className="kata-pembuka-news"> Selamat Datang di {props.data.nama_instansi}</h2>
+              <h2 className="kata-pembuka-news"> {props.data.nama_instansi}</h2>
 
               <p>{props.data.tentang}</p>
               <div className="nama-kpla">
@@ -245,7 +306,7 @@ function Home(props) {
           <Row mb={5}>
             <Col md={12} className="g-valign-middle">
               <h3 className="text-center fw-bold cf">
-                <span className="title-label-left">Galerry</span>
+                <span className="title-label-left">Galeri Foto</span>
                 <span className="right">
                   <Link className="btn-more" to={`/foto`}>
                     See More
@@ -253,7 +314,24 @@ function Home(props) {
                 </span>
               </h3>
 
-              <div className="h-gallery">1</div>
+              <div className="h-gallery">
+                <ul className="gallery">
+                  {BoxAlbum &&
+                    BoxAlbum.map((item, index) => {
+                      return (
+                        <li key={index}>
+                          <div>
+                            <img src={item.image_file_data} />
+
+                            <span className="name">
+                              Rexodus<span className="title">Destruction Expert</span>
+                            </span>
+                          </div>
+                        </li>
+                      );
+                    })}
+                </ul>
+              </div>
             </Col>
           </Row>
         </Container>

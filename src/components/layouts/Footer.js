@@ -10,7 +10,7 @@ function Footer(props) {
               <div className="title-footer">
                 <h3>Tentang Kami</h3>
               </div>
-              <p>{props.data.tentang}</p>
+              <p className="text-footer">{props.data.tentang}</p>
             </Col>
             <Col md={4} sm={12} xs={12}>
               <div className="title-footer">

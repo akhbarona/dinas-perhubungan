@@ -35,7 +35,7 @@ function PhotoGalleries() {
         </div>
 
         <Row xs={1} md={3} className="g-4">
-          {console.log(images)}
+          {/* {console.log(images)} */}
           {images != null ? (
             <>
               {images &&

@@ -1,7 +1,23 @@
 import { Row, Col, Container } from 'react-bootstrap';
-import moment from 'moment/min/moment-with-locales';
-
+import moment from 'moment';
+import 'moment/locale/id';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 function Header(props) {
+  const [DataResponse, setDataResponses] = useState(null);
+
+  useEffect(() => {
+    axios
+      .get('http://adminmesuji.embuncode.com/api/news?instansi_id=2&sort_by=created_at&sort_type=desc&per_page=5')
+      .then(function (response) {
+        // console.log(response.data.data.data);
+        setDataResponses(response.data.data.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
   return (
     <header>
       <div className="header-top">
@@ -9,23 +25,18 @@ function Header(props) {
           <Row>
             <Col className="col top-left ">
               <div className="ticker-wrapper-v">
-                <div className="heading-c">Recent News</div>
+                <div className="heading-c">BREAKING</div>
                 <ul className="news-ticker-v">
-                  <li>
-                    <a href="">1. What is Lorem Ipsum?</a>
-                  </li>
-                  <li>
-                    <a href="">2. Why do we use it?</a>
-                  </li>
-                  <li>
-                    <a href="">3. Where does it come from?</a>
-                  </li>
-                  <li>
-                    <a href="">4. Where can I get some?</a>
-                  </li>
-                  <li>
-                    <a href="">5. The last news item</a>
-                  </li>
+                  {DataResponse &&
+                    DataResponse.map((item, index) => {
+                      return (
+                        <li key={index}>
+                          <Link className="news-ticker-a" to={`/news/details/${item.id}`}>
+                            {item.title}
+                          </Link>
+                        </li>
+                      );
+                    })}
                 </ul>
               </div>
             </Col>
