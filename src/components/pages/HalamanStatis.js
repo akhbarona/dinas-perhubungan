@@ -1,43 +1,66 @@
-import { Container } from 'react-bootstrap';
+import { Container, Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import moment from 'moment';
+import 'moment/locale/id';
 function HalamanStatis() {
+  const { id } = useParams();
+  const [DataStatic, setDataStatic] = useState([]);
+  const [Loading, setLoading] = useState(false);
+  useEffect(() => {
+    setLoading(null);
+    axios
+      .get('http://adminmesuji.embuncode.com/api/static-page/' + id)
+      .then(function (Umum) {
+        setDataStatic(Umum.data.data);
+        setLoading(true);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
   return (
     <section className="section">
       <Container>
         <div className="card mt-4">
-          <div className="card-body">
-            <div className="title-static">
-              <div className="meta-static">
-                <div className="pt-2 pb-2">
-                  <Link className="" to="#">
-                    created at 20 Januari 2022
+          {Loading ? (
+            <div className="card-body">
+              <div className="header-static">
+                <div className="title-static">
+                  <h2 className="font-size-title">{DataStatic.title}</h2>
+                </div>
+                <div className="meta-static">
+                  <div className="pt-2 pb-2 info-meta-static">
+                    <Link className="time-created-at" to="#">
+                      created at {moment(DataStatic.created_at).format('Do MMMM YYYY')}
+                    </Link>
+                    <Link className="created-post-by" to="#">
+                      created by {DataStatic.created_by}
+                    </Link>
+                  </div>
+                </div>
+                <div className="pt-2 pb-2 icon-meta-static">
+                  <Link className="icon-created-at" to="#">
+                    <i className="fa-solid fa-calendar"></i>
+                    update at {moment(DataStatic.updated_at).format('Do MMMM YYYY')}
                   </Link>
-                  <Link className="" to="#">
-                    created by Super Administrator
+                  <Link className="icon-created-by" to="#">
+                    <i className="fa-solid fa-user"></i>
+                    update by {DataStatic.updated_by}
                   </Link>
                 </div>
               </div>
-              <h2>Hello World!</h2>
-              <div className="pt-2 pb-2">
-                <Link className="" to="#">
-                  <i className="fa-solid fa-calendar"></i>
-                  update at 20 Januari 2022
-                </Link>
-                <Link className="" to="#">
-                  <i className="fa-solid fa-user"></i>
-                  update by Super Administrator
-                </Link>
+              <div className="content-static">
+                <p dangerouslySetInnerHTML={{ __html: DataStatic.content }}></p>
               </div>
             </div>
-            <div className="content-static">
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed aliquam sit amet sem id maximus. Aliquam id posuere risus. Nam a sapien lacus. Sed a enim eu metus molestie scelerisque. Ut vehicula elit velit, a interdum ante
-                consectetur a. Nulla sodales odio porttitor semper dapibus. Vivamus dictum, nibh nec rutrum lacinia, nunc ipsum iaculis mi, quis feugiat nisl nisl ac neque. Donec semper, nisi sed dapibus consequat, tellus est facilisis
-                enim, ut feugiat ipsum libero non nisl. Suspendisse cursus at enim convallis fringilla. Mauris sapien neque, gravida in lacus non, viverra ornare justo. Sed dapibus nibh quam, porttitor vehicula ante dignissim molestie.
-                Donec id bibendum ipsum. Cras semper, ipsum vel rutrum dictum, nunc libero feugiat turpis, cursus varius urna sem ac enim.
-              </p>
-            </div>
-          </div>
+          ) : (
+            <Spinner animation="border" role="status" className="m-auto">
+              <span className="visually-hidden">Loading...</span>
+            </Spinner>
+          )}
         </div>
       </Container>
     </section>

@@ -68,7 +68,7 @@ function DetailsNews() {
         });
     }
     relatedPost();
-  }, [DataResponse.slug]);
+  }, [DataResponse.news_category_id]);
 
   function handleLength(value, lengths) {
     if (value.length < lengths) {

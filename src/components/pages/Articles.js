@@ -142,7 +142,7 @@ function Articles() {
                                 <Link className="read-more-size" to="#">
                                   <i className="fa-solid fa-calendar"></i>
 
-                                  {moment(item.created_at).format('Do MMMM YYYY  ')}
+                                  {moment(item.created_at).format('Do MMMM YYYY')}
                                 </Link>
                                 <Link className="read-more-size" to="#">
                                   <i className="fa-solid fa-tag"></i>

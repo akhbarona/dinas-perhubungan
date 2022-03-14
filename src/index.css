@@ -922,6 +922,9 @@ h3.main-heading span.right:hover {
 .fa-eye:before {
   margin-right: 5px;
 }
+.fa-user:before {
+  margin-right: 5px;
+}
 .blog-card .description .meta-tag a.read-more-size.x-eyes:after {
   content: 'x views';
 }
@@ -2129,4 +2132,47 @@ a.more-link {
   text-decoration: none;
   margin-top: 50px;
   letter-spacing: 1px;
+}
+
+/* static pages */
+.title-static {
+  display: flex;
+  justify-content: center;
+}
+.pt-2.pb-2.icon-meta-static a,
+.pt-2.pb-2.info-meta-static a {
+  margin-right: 10px;
+  text-decoration: none;
+  color: #072948;
+}
+h2.font-size-title {
+  margin: 0.5rem 0rem;
+
+  text-transform: capitalize;
+  font-size: 40px;
+  color: #072948;
+  display: inline-block;
+  height: 50px;
+  box-shadow: 0 25px 0 -23px #5cc7a8;
+}
+
+.pt-2.pb-2.info-meta-static {
+  text-align: center;
+}
+.pt-2.pb-2.info-meta-static a {
+  color: #888888 !important;
+}
+.pt-2.pb-2.icon-meta-static {
+  border-top: 1px solid #ebebef;
+  border-bottom: 1px solid #ebebef;
+  margin: 2rem 0rem;
+  text-align: right;
+}
+.content-static {
+  text-align: justify;
+}
+.content-static p {
+  margin: 0.5rem 0rem;
+  word-break: break-all;
+  text-indent: 45px;
 }

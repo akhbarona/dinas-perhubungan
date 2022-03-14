@@ -27,7 +27,7 @@ function App() {
   const [Instansi, setInstansi] = useState(0);
   useEffect(() => {
     axios
-      .get('http://adminmesuji.embuncode.com/api/instansi/detail/2')
+      .get('http://adminmesuji.embuncode.com/api/instansi/detail/4')
       .then(function (response) {
         setInstansi(response.data.data);
       })
@@ -81,7 +81,7 @@ function App() {
       <div className="main-container">
         <Routes>
           <Route exact path="/" element={<Home data={Instansi} />} />
-          <Route path="/informasi/visi-dan-misi" element={<VisiMisi />} />
+          {/* <Route path="/informasi/visi-dan-misi" element={<VisiMisi />} /> */}
           <Route exact path="/article" element={<Articles />} />
           <Route path="/article/details/:id" element={<DetailsArticles />} />
           <Route exact path="/news" element={<News />} />
