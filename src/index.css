@@ -111,8 +111,8 @@ div#root {
 }
 /* logo */
 .logo {
-  /* width: 100%; */
-  max-width: 500px;
+  width: 25%;
+  /* max-width: 500px; */
   /* height: auto; */
   height: 25vh;
 }
@@ -940,6 +940,9 @@ h3.main-heading span.right:hover {
 /* padding: 15px; */
 /* } */
 .text-article p {
+  padding-left: 15px;
+}
+p.pt-1.pb-4.text-news p {
   padding-left: 15px;
 }
 .blog-card:hover .details {

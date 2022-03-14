@@ -1,7 +1,7 @@
 import { Container, Row, Col, Spinner } from 'react-bootstrap';
 import { useState, useEffect, useLayoutEffect } from 'react';
 import axios from 'axios';
-
+import { Link } from 'react-router-dom';
 function PhotoGalleries() {
   const [images, setImages] = useState(null);
   useLayoutEffect(() => {
@@ -42,10 +42,10 @@ function PhotoGalleries() {
                 images.map((item, index) => {
                   return item.image_gallery_item.map((itm, idx) => {
                     return (
-                      <Col md={6} sm={12} xs={12} lg={4} key={idx}>
+                      <Col id="image" md={6} sm={12} xs={12} lg={4} key={idx}>
                         <a href={`#lightbox-` + i}>
                           <div className="tile">
-                            <img src={itm.image_file_data} />
+                            <img src={itm.image_file_data} alt={itm.image_file_name} />
                             <div className="text">
                               <h1>{handleLength(itm.description, 20)}</h1>
                               {/* <h2 className="animate-text">More lorem ipsum bacon ipsum.</h2> */}
@@ -60,9 +60,9 @@ function PhotoGalleries() {
                         </a>
                         <div className="lightbox" id={`lightbox-` + i} key={++i}>
                           <div className="content">
-                            <img src={itm.image_file_data} />
+                            <img src={itm.image_file_data} alt={itm.image_file_name} />
                             <div className="title">{itm.image_file_name}</div>
-                            <a className="close" href="#image"></a>
+                            <Link className="close" to="#image"></Link>
                           </div>
                         </div>
                       </Col>

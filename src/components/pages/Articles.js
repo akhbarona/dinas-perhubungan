@@ -1,10 +1,10 @@
-import { Row, Col, Container, ListGroup, Badge, Pagination, Spinner, Form, Button } from 'react-bootstrap';
+import { Row, Col, Container, ListGroup, Badge, Pagination, Spinner } from 'react-bootstrap';
 import axios from 'axios';
 import { useEffect, useState, useCallback, Fragment, useLayoutEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { useLocation } from 'react-router-dom';
+// import { useLocation } from 'react-router-dom';
 import moment from 'moment';
 import 'moment/locale/id';
 // import { useParams } from 'react-router-dom';
@@ -112,7 +112,7 @@ function Articles() {
   function handleSearchChange(value) {
     // console.log('value', value.target.value);
     if (value.key === 'Enter') {
-      if (value.target.value != '') {
+      if (value.target.value !== '') {
         gettingData(1, null, value.target.value);
       } else {
         gettingData(null, null);
@@ -125,8 +125,8 @@ function Articles() {
         <Row>
           <Col lg={8} md={12} sm={12} xs={12}>
             <Row>
-              {DataResponse != null ? (
-                IsAda != 0 ? (
+              {DataResponse !== null ? (
+                IsAda !== 0 ? (
                   DataResponse &&
                   DataResponse.map((item, index) => {
                     return (

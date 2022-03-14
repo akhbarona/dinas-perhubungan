@@ -1,4 +1,4 @@
-import { useState, useEffect, useLayoutEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Container, Row, Col, Spinner } from 'react-bootstrap';
 import axios from 'axios';
@@ -36,11 +36,11 @@ function DetailsArticles() {
   };
   useEffect(() => {
     getIPAddress();
-  }, []);
+  }, [getIPAddress]);
   useEffect(() => {
     myRef.current.scrollIntoView({ behavior: 'smooth' });
     getData();
-  }, [id]);
+  }, [getData]);
 
   function getData() {
     setLoading(false);

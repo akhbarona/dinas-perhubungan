@@ -128,15 +128,15 @@ function Home(props) {
                           <Card.Img className="card-img" variant="top" src={item.image_file_data} />
                           <Card.Body>
                             <p className="meta-info">
-                              <a href="#" className="text-p">
+                              <Link to="#" className="text-p">
                                 {(moment.locale('id-ID'), moment(item.created_at).format('dddd, Do MMMM YYYY  '))}
-                              </a>
-                              <a href="#" className="text-p" style={{ marginLeft: 10 }}>
+                              </Link>
+                              <Link to="#" className="text-p" style={{ marginLeft: 10 }}>
                                 {item.total_hit}x dibaca
-                              </a>
-                              <a href="#" className="text-p" style={{ marginLeft: 10 }}>
+                              </Link>
+                              <Link to="#" className="text-p" style={{ marginLeft: 10 }}>
                                 {item.news_category_id}
-                              </a>
+                              </Link>
                             </p>
                             <Card.Title>{handleLength(item.title, 60)}</Card.Title>
                             {/* <p className="card-text">
@@ -217,9 +217,9 @@ function Home(props) {
                 <h3 className="main-heading">
                   Berita Umum
                   <span className="right">
-                    <a className="btn-more" href="#">
+                    <Link className="btn-more" to={`/news`}>
                       See More
-                    </a>
+                    </Link>
                   </span>
                 </h3>
                 <div className="list-news-container">
@@ -286,7 +286,7 @@ function Home(props) {
         <Container>
           <Row mb={5}>
             <Col md={4} className="u-valign-middle">
-              <img src={props.data.foto_kepala} />
+              <img src={props.data.foto_kepala} alt={props.data.nama_kepala} />
             </Col>
             <Col md={8} className="rest">
               <h2 className="kata-pembuka-news"> {props.data.nama_instansi}</h2>
@@ -321,7 +321,7 @@ function Home(props) {
                       return (
                         <li key={index}>
                           <div>
-                            <img src={item.image_file_data} />
+                            <img src={item.image_file_data} alt={item.image_file_name} />
 
                             <span className="name">
                               Rexodus<span className="title">Destruction Expert</span>

@@ -16,20 +16,18 @@ function PDFViewer() {
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+  }, [slug]);
 
   return (
     <section className="section">
       <Container>
         {DetailDocument &&
-          DetailDocument.map((item, index) => {
-            if (item.dokumen_file_name.replace(/\s/g, '') == filename.replace(/\s/g, '')) {
-              return (
-                <iframe src={`data:application/pdf;base64,${item.dokumen_file_data}`} title={item.dokumen_file_name} className="iframe-pdf" key={index}>
-                  <a href={`data:application/pdf;base64,${item.dokumen_file_data}`}>Download PDF</a>
-                </iframe>
-              );
-            }
+          DetailDocument.filter((val) => val.dokumen_file_name.replace(/\s/g, '') === filename.replace(/\s/g, '')).map((item, index) => {
+            return (
+              <iframe src={`data:application/pdf;base64,${item.dokumen_file_data}`} title={item.dokumen_file_name} className="iframe-pdf" key={index}>
+                <a href={`data:application/pdf;base64,${item.dokumen_file_data}`}>Download PDF</a>
+              </iframe>
+            );
           })}
       </Container>
     </section>

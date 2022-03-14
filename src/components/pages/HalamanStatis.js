@@ -20,7 +20,7 @@ function HalamanStatis() {
       .catch(function (error) {
         console.log(error);
       });
-  }, []);
+  }, [id]);
   return (
     <section className="section">
       <Container>

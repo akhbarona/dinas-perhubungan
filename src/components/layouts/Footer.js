@@ -17,7 +17,7 @@ function Footer(props) {
                 <h3>Maps</h3>
               </div>
 
-              <iframe src={props.data.google_map} width="100%" height="250" allowFullScreen="" loading="lazy"></iframe>
+              <iframe title={props.data.nama_instansi} src={props.data.google_map} width="100%" height="250" allowFullScreen="" loading="lazy"></iframe>
             </Col>
             <Col md={4} sm={12} xs={12}>
               <div className="title-footer">

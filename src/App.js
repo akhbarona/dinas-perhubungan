@@ -1,8 +1,8 @@
 import Home from './components/pages/Home';
-import VisiMisi from './components/pages/VisiMisi';
+// import VisiMisi from './components/pages/VisiMisi';
 import Navbars from './components/layouts/Navbars';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Container, Row, Col, Card } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import Header from './components/layouts/Header';
 import { Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
@@ -67,9 +67,9 @@ function App() {
                 </span>
                 <div className="info-inner-wrap">
                   <span>Call us ?</span>
-                  <a target="_blank" href="#">
+                  <Link target="_blank" to="#">
                     {Instansi.nomor_telepon}
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
