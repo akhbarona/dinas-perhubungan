@@ -9,7 +9,7 @@ function Header(props) {
 
   useEffect(() => {
     axios
-      .get('http://adminmesuji.embuncode.com/api/news?instansi_id=2&sort_by=created_at&sort_type=desc&per_page=5')
+      .get('http://adminmesuji.embuncode.com/api/news?instansi_id=4&sort_by=created_at&sort_type=desc&per_page=5')
       .then(function (response) {
         // console.log(response.data.data.data);
         setDataResponses(response.data.data.data);

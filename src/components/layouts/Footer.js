@@ -21,12 +21,11 @@ function Footer(props) {
             </Col>
             <Col md={4} sm={12} xs={12}>
               <div className="title-footer">
-                <h3>Buku Tamu</h3>
+                <h3 className="title-logo-lamtim">Kabupaten Lampung Timur</h3>
               </div>
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
-                a type specimen book.
-              </p>
+              <div className="logo-size">
+                <img className="logo-footer" src={`${props.data.logo_instansi}`} alt="logo" key="1" />
+              </div>
             </Col>
           </Row>
         </Container>

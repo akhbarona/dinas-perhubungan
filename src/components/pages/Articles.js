@@ -25,7 +25,7 @@ function Articles() {
   });
   useEffect(() => {
     axios
-      .get('http://adminmesuji.embuncode.com/api/article/categories/2')
+      .get('http://adminmesuji.embuncode.com/api/article/categories/4')
       .then(function (response) {
         setDataCategories(response.data.data);
       })
@@ -36,7 +36,7 @@ function Articles() {
 
   useEffect(() => {
     axios
-      .get('http://adminmesuji.embuncode.com/api/article?instansi_id=2&per_page=5&sort_type=desc&sort_by=total_hit')
+      .get('http://adminmesuji.embuncode.com/api/article?instansi_id=4&per_page=5&sort_type=desc&sort_by=total_hit')
       .then(function (response) {
         setPostPopular(response.data.data.data);
       })
@@ -67,9 +67,9 @@ function Articles() {
     setDataResponses(null);
     let url = '';
     if (slug == null) {
-      url = 'http://adminmesuji.embuncode.com/api/article?instansi_id=2' + urlTitle + '&per_page=4&page=' + page;
+      url = 'http://adminmesuji.embuncode.com/api/article?instansi_id=4' + urlTitle + '&per_page=4&page=' + page;
     } else {
-      url = 'http://adminmesuji.embuncode.com/api/article?instansi_id=2' + urlTitle + '&per_page=4&slug=' + slug + '&page=' + page;
+      url = 'http://adminmesuji.embuncode.com/api/article?instansi_id=4' + urlTitle + '&per_page=4&slug=' + slug + '&page=' + page;
     }
     axios
       .get(url)

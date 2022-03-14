@@ -122,6 +122,16 @@ div#root {
   display: flex;
   width: 100%;
 }
+.logo-footer {
+  width: 50%;
+  /* max-width: 500px; */
+  /* height: auto; */
+  height: 41vh;
+  margin: auto;
+}
+.title-logo-lamtim {
+  text-align: center;
+}
 .title-logo {
   margin: auto;
   width: 100%;

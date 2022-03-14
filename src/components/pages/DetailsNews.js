@@ -1,4 +1,4 @@
-import { useState, useEffect, useLayoutEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Container, Row, Col, Spinner } from 'react-bootstrap';
 import axios from 'axios';
@@ -58,7 +58,7 @@ function DetailsNews() {
   useEffect(() => {
     function relatedPost() {
       axios
-        .get('http://adminmesuji.embuncode.com/api/news?instansi_id=2&slug= ' + DataResponse.news_category_id + '&per_page=5&sort_type=desc&sort_by=created_at')
+        .get('http://adminmesuji.embuncode.com/api/news?instansi_id=4&slug= ' + DataResponse.news_category_id + '&per_page=5&sort_type=desc&sort_by=created_at')
         .then(function (response) {
           // console.log(response.data.data);
           setRelatedpost(response.data.data.data);

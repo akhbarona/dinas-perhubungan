@@ -36,11 +36,11 @@ function DetailsArticles() {
   };
   useEffect(() => {
     getIPAddress();
-  }, [getIPAddress]);
+  }, []);
   useEffect(() => {
     myRef.current.scrollIntoView({ behavior: 'smooth' });
     getData();
-  }, [getData]);
+  }, []);
 
   function getData() {
     setLoading(false);
@@ -58,7 +58,7 @@ function DetailsArticles() {
   useEffect(() => {
     function relatedPost() {
       axios
-        .get('http://adminmesuji.embuncode.com/api/article?instansi_id=2&slug= ' + DataResponse.slug + '&per_page=5&sort_type=desc&sort_by=created_at')
+        .get('http://adminmesuji.embuncode.com/api/article?instansi_id=4&slug= ' + DataResponse.slug + '&per_page=5&sort_type=desc&sort_by=created_at')
         .then(function (response) {
           // console.log(response.data.data);
           setRelatedpost(response.data.data.data);

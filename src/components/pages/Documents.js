@@ -10,7 +10,7 @@ function Documents() {
   useEffect(() => {
     setLoading(null);
     axios
-      .get('http://adminmesuji.embuncode.com/api/dokumen?instansi_id=7')
+      .get('http://adminmesuji.embuncode.com/api/dokumen?instansi_id=4')
       .then((response) => {
         setDataDocument(response.data.data.data);
         setLoading(true);

@@ -7,7 +7,7 @@ function VideoGalleries() {
 
   useEffect(() => {
     axios
-      .get('http://adminmesuji.embuncode.com/api/video-gallery?instansi_id=2')
+      .get('http://adminmesuji.embuncode.com/api/video-gallery?instansi_id=4')
       .then(function (response) {
         setVideos(response.data.data.data);
       })
@@ -38,7 +38,7 @@ function VideoGalleries() {
                     return (
                       <Col md={6} sm={12} xs={12} lg={4} key={idx}>
                         <div className="tile-videos">
-                          <iframe id="player" type="text/html" src={`https://www.youtube.com/embed/${itm.video_url}?`} className="player-wrapper" style={{ width: '100%', height: '100%' }} frameBorder="0"></iframe>
+                          <iframe title={itm.description} id="player" type="text/html" src={`https://www.youtube.com/embed/${itm.video_url}?`} className="player-wrapper" style={{ width: '100%', height: '100%' }} frameBorder="0"></iframe>
                           {/* <ReactPlayer url="https://www.youtube.com/watch?v=ZuxG5HjqyNg" className="player-wrapper" width="100%" height="100%" controls={true} /> */}
                           <div className="text-videos">
                             <h5 style={{ marginTop: '4rem', marginBottom: '0rem', fontSize: '20px' }}>{item.description}</h5>

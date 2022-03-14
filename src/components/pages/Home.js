@@ -17,7 +17,7 @@ function Home(props) {
   const [DataDokumen, setDataDokumen] = useState([]);
   useEffect(() => {
     axios
-      .get('http://adminmesuji.embuncode.com/api/dokumen?instansi_id=7')
+      .get('http://adminmesuji.embuncode.com/api/dokumen?instansi_id=4')
       .then(function (dokumen) {
         // console.log('dokumen: ' + dokumen.data.data.data);
         setDataDokumen(dokumen.data.data.data);
@@ -28,7 +28,7 @@ function Home(props) {
   }, []);
   useEffect(() => {
     axios
-      .get('http://adminmesuji.embuncode.com/api/news?instansi_id=2&sort_by=created_at&sort_type=desc&per_page=3')
+      .get('http://adminmesuji.embuncode.com/api/news?instansi_id=4&sort_by=created_at&sort_type=desc&per_page=3')
       .then(function (response) {
         setDataResponses(response.data.data.data);
       })
@@ -38,7 +38,7 @@ function Home(props) {
   }, []);
   useEffect(() => {
     axios
-      .get('http://adminmesuji.embuncode.com/api/news?instansi_id=2')
+      .get('http://adminmesuji.embuncode.com/api/news?instansi_id=4')
       .then(function (response) {
         setBeritaUmum(response.data.data.data);
         // console.log('Berita Umum :  ', response.data.data.data);
@@ -50,7 +50,7 @@ function Home(props) {
 
   useEffect(() => {
     axios
-      .get('http://adminmesuji.embuncode.com/api/news?instansi_id=2&sort_by=total_hit&sort_type=desc&per_page=7')
+      .get('http://adminmesuji.embuncode.com/api/news?instansi_id=4&sort_by=total_hit&sort_type=desc&per_page=7')
       .then(function (response) {
         // setBeritaPopuler(response.data.data.data);
         // console.log('Berita Umum :  ', response.data.data.data);
@@ -63,7 +63,7 @@ function Home(props) {
 
   useEffect(() => {
     axios
-      .get('http://adminmesuji.embuncode.com/api/image-gallery?instansi_id=2')
+      .get('http://adminmesuji.embuncode.com/api/image-gallery?instansi_id=4')
       .then(function (response) {
         rebuildAlbum(response.data.data.data);
       })

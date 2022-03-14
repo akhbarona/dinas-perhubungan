@@ -1,5 +1,4 @@
 import Home from './components/pages/Home';
-// import VisiMisi from './components/pages/VisiMisi';
 import Navbars from './components/layouts/Navbars';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';

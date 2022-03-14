@@ -7,7 +7,7 @@ function Slides() {
 
   useEffect(() => {
     axios
-      .get('http://adminmesuji.embuncode.com/api/image-gallery?instansi_id=2&per_page=1')
+      .get('http://adminmesuji.embuncode.com/api/image-gallery?instansi_id=4&per_page=1')
       .then(function (response) {
         setDataResponses(response.data.data.data);
       })

@@ -9,7 +9,7 @@ function PhotoGalleries() {
   });
   useEffect(() => {
     axios
-      .get('http://adminmesuji.embuncode.com/api/image-gallery?instansi_id=2')
+      .get('http://adminmesuji.embuncode.com/api/image-gallery?instansi_id=4')
       .then(function (response) {
         setImages(response.data.data.data);
       })
