@@ -229,12 +229,14 @@ function Home(props) {
                         BeritaUmum.map((item, index) => {
                           return (
                             <li className="list-news__item " key={index}>
-                              <h3 className="news__title">{handleLength(item.title, 57)}</h3>
-                              <p className="news__info">
-                                <span>{moment(item.created_at).startOf('hour').fromNow()}</span>
-                                <span className="news__cmt">{item.total_hit}x dibaca</span>
-                                <span className="news__cmt">{item.news_category_id}</span>
-                              </p>
+                              <Link className="style-detial-news" to={`/news/details/${item.id}`}>
+                                <h3 className="news__title">{handleLength(item.title, 57)}</h3>
+                                <p className="news__info">
+                                  <span>{moment(item.created_at).startOf('hour').fromNow()}</span>
+                                  <span className="news__cmt">{item.total_hit}x dibaca</span>
+                                  <span className="news__cmt">{item.news_category_id}</span>
+                                </p>
+                              </Link>
                             </li>
                           );
                         })}

@@ -1091,6 +1091,9 @@ div.row .detail-height {
   padding: 1rem;
   border-bottom: 1px solid #ebebef;
 }
+a.style-detial-news {
+  text-decoration: none;
+}
 .list-news__item:last-child {
   border-bottom: 0;
 }
